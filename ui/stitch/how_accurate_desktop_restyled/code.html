@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0B5CAD",
+            "background": "#faf8ff",
+            "surface": "#FAF8FF",
+            "card-border": "#E2E8F0"
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#FAF8FF] text-[#131B2E] flex flex-col h-screen overflow-hidden font-sans antialiased">
+<!-- Top bar (64px high) -->
+<header class="h-16 w-full bg-white border-b border-[#E2E8F0] shrink-0 sticky top-0 z-50">
+<div class="h-16 w-full max-w-[1200px] mx-auto px-10 flex items-center justify-between">
+<div class="flex items-center gap-8 h-full">
+<!-- Logo -->
+<div class="flex items-center gap-2 text-[#0B5CAD]">
+<span class="material-symbols-outlined text-[24px]">single_bed</span>
+<span class="text-xl font-bold tracking-tight text-[#131B2E]">WardCast</span>
+</div>
+<!-- Tabs -->
+<nav class="flex items-center gap-6 h-full">
+<a class="h-full flex items-center px-1 text-[14px] font-medium text-[#475569] hover:text-[#131B2E] transition-colors" href="#">Today</a>
+<a class="h-full flex items-center px-1 text-[14px] font-medium text-[#475569] hover:text-[#131B2E] transition-colors" href="#">New Patient</a>
+<a class="h-full flex items-center px-1 text-[14px] font-medium text-[#475569] hover:text-[#131B2E] transition-colors" href="#">What If</a>
+<a class="h-full flex items-center px-1 text-[14px] font-semibold text-[#0B5CAD] border-b-[3px] border-[#0B5CAD]" href="#">How Accurate</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-3.5 py-1 bg-[#EAEDFF] text-[#475569] rounded-full text-[14px] font-medium">Demo hospital (simulated)</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="w-full flex-1 flex flex-col justify-between overflow-hidden">
+<div class="w-full max-w-[1200px] mx-auto px-10 py-6 flex-1 flex flex-col justify-between">
+<!-- Header area -->
+<div class="mb-5 shrink-0">
+<h1 class="text-[32px] leading-[40px] font-bold text-[#0F172A] tracking-tight">Can I trust this?</h1>
+<p class="text-[18px] leading-[26px] text-[#475569] mt-1">How our estimates hold up in testing.</p>
+</div>
+<!-- Cards Section: 3 cols x 2 rows, equal height, filled comfortably -->
+<div class="grid grid-cols-3 grid-rows-2 gap-6 flex-1 min-h-0">
+<!-- Card 1 -->
+<div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-3 mb-2">
+<span class="text-[16px] font-bold leading-snug text-[#0F172A]">Guessing how long one patient stays</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#E8F5E9] text-[#2E7D32] shrink-0">
+              Tested
+            </span>
+</div>
+<div class="text-[56px] font-bold leading-tight tracking-tight text-[#0F172A] mt-2">
+            4 in 10
+          </div>
+</div>
+<p class="text-[18px] leading-[26px] text-[#475569]">
+          correct. A plain guess gets about 3 in 10.
+        </p>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-3 mb-2">
+<span class="text-[16px] font-bold leading-snug text-[#0F172A]">Spotting patients who may stay over 50 days</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#E8F5E9] text-[#2E7D32] shrink-0">
+              Tested
+            </span>
+</div>
+<div class="text-[56px] font-bold leading-tight tracking-tight text-[#0F172A] mt-2">
+            3 in 4
+          </div>
+</div>
+<p class="text-[18px] leading-[26px] text-[#475569]">
+          caught. About 6 in 10 alerts are right.
+        </p>
+</div>
+<!-- Card 3 -->
+<div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-3 mb-2">
+<span class="text-[16px] font-bold leading-snug text-[#0F172A]">Adding up a whole ward</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#E8F5E9] text-[#2E7D32] shrink-0">
+              Tested
+            </span>
+</div>
+<div class="text-[44px] font-bold leading-tight tracking-tight text-[#0F172A] mt-2">
+            Off by about 4%
+          </div>
+</div>
+<p class="text-[18px] leading-[26px] text-[#475569]">
+          with 100 patients. With 1 patient, it is off by more than half.
+        </p>
+</div>
+<!-- Card 4 -->
+<div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-3 mb-2">
+<span class="text-[16px] font-bold leading-snug text-[#0F172A]">Predicting next week's beds</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#F1F5F9] text-[#475569] shrink-0">
+              Rough estimate
+            </span>
+</div>
+<div class="text-[44px] font-bold leading-tight tracking-tight text-[#0F172A] mt-2">
+            Not better
+          </div>
+</div>
+<p class="text-[18px] leading-[26px] text-[#475569]">
+          than simply assuming tomorrow looks like today.
+        </p>
+</div>
+<!-- Card 5 -->
+<div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between gap-3 mb-2">
+<span class="text-[16px] font-bold leading-snug text-[#0F172A]">Spotting surges with the smart model</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#F1F5F9] text-[#475569] shrink-0">
+              Rough estimate
+            </span>
+</div>
+<div class="text-[44px] font-bold leading-tight tracking-tight text-[#0F172A] mt-2">
+            Not better
+          </div>
+</div>
+<p class="text-[18px] leading-[26px] text-[#475569]">
+          than a simple rule: 85% of beds full. So the app uses the simple rule.
+        </p>
+</div>
+<!-- Card 6 -->
+<div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-start">
+<div class="text-[20px] font-bold text-[#0F172A] mb-4">
+          Good to know
+        </div>
+<ul class="flex flex-col gap-3 text-[18px] leading-[26px] text-[#475569]">
+<li class="flex items-start gap-2.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#94A3B8] shrink-0 mt-2.5"></span>
+<span>Learned from US hospital data, not Indian hospitals.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#94A3B8] shrink-0 mt-2.5"></span>
+<span>The hospital on screen is simulated.</span>
+</li>
+<li class="flex items-start gap-2.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#94A3B8] shrink-0 mt-2.5"></span>
+<span>Not for decisions about one patient.</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full bg-[#FAF8FF] py-3 text-center border-t border-[#E2E8F0]/60 shrink-0">
+<p class="text-[14px] text-[#475569]">
+      Planning aid only. Not for decisions about individual patients.
+    </p>
+</footer>
+</main>
+</body></html>

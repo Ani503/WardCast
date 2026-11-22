@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<title>WardCast - New Patient</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#0B5CAD',
+            'brand-hover': '#084887',
+            'border-subtle': '#E2E8F0',
+            'warning-amber': '#B26A00',
+            'warning-amber-bg': '#FEF3C7',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] text-[#0F172A] flex flex-col min-h-screen">
+<!-- Top bar (64px high) -->
+<header class="h-16 w-full bg-white border-b border-[#E2E8F0] shrink-0">
+<div class="max-w-[1200px] h-full mx-auto px-10 flex items-center justify-between">
+<div class="flex items-center gap-10 h-full">
+<!-- Logo -->
+<div class="flex items-center gap-2 text-[#0B5CAD]">
+<span class="material-symbols-outlined text-[26px]">single_bed</span>
+<span class="text-xl font-bold tracking-tight text-[#0F172A]">WardCast</span>
+</div>
+<!-- Tabs -->
+<nav class="flex items-center gap-8 h-full">
+<a class="h-full flex items-center text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" href="#">Today</a>
+<a class="h-full flex items-center text-sm font-semibold text-[#0B5CAD] border-b-[3px] border-[#0B5CAD] transition-colors" href="#">New Patient</a>
+<a class="h-full flex items-center text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" href="#">What If</a>
+<a class="h-full flex items-center text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" href="#">How Accurate</a>
+</nav>
+</div>
+<!-- Right: grey chip -->
+<div class="flex items-center">
+<span class="px-3.5 py-1.5 bg-[#F1F5F9] rounded-full text-xs font-medium text-[#475569]">
+          Demo hospital (simulated)
+        </span>
+</div>
+</div>
+</header>
+<!-- Main Content Frame (1200px max width, 40px padding, 24px gap) -->
+<main class="w-full flex-1 flex flex-col justify-center py-10">
+<div class="w-full max-w-[1200px] mx-auto px-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+<!-- Left Card (Form) -->
+<div class="lg:col-span-5 bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between">
+<div>
+<!-- Page question: 32px bold -->
+<h1 class="text-[32px] leading-[40px] font-bold text-[#0F172A] tracking-[-0.01em] mb-6">
+              How long might this patient stay?
+            </h1>
+<form class="flex flex-col gap-5" id="estimate-form">
+<!-- Department (dropdown) -->
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-medium text-[#0F172A]" for="department">Department</label>
+<div class="relative">
+<select class="w-full h-11 px-3.5 bg-[#F8FAFC] text-[#0F172A] text-sm rounded-lg border border-[#E2E8F0] appearance-none cursor-pointer focus:outline-none focus:border-[#0B5CAD]" id="department">
+<option value="gynecology">gynecology</option>
+<option selected="" value="radiotherapy">radiotherapy</option>
+<option value="anesthesia">anesthesia</option>
+<option value="surgery">surgery</option>
+<option value="TB &amp; Chest disease">TB &amp; Chest disease</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- How serious (three big buttons) -->
+<div class="flex flex-col gap-1.5">
+<span class="text-sm font-medium text-[#0F172A]">How serious</span>
+<div class="grid grid-cols-3 gap-2 bg-[#F1F5F9] p-1 rounded-lg" data-toggle-group="severity">
+<button class="h-10 rounded-md text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" data-value="Minor" type="button">Minor</button>
+<button class="h-10 rounded-md text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" data-value="Moderate" type="button">Moderate</button>
+<button class="h-10 rounded-md text-sm font-medium bg-[#0B5CAD] text-white transition-colors" data-value="Extreme" type="button">Extreme</button>
+</div>
+</div>
+<!-- Age group (dropdown) -->
+<div class="flex flex-col gap-1.5">
+<label class="text-sm font-medium text-[#0F172A]" for="age-group">Age group</label>
+<div class="relative">
+<select class="w-full h-11 px-3.5 bg-[#F8FAFC] text-[#0F172A] text-sm rounded-lg border border-[#E2E8F0] appearance-none cursor-pointer focus:outline-none focus:border-[#0B5CAD]" id="age-group">
+<option value="0-10">0-10</option>
+<option value="11-20">11-20</option>
+<option value="21-30">21-30</option>
+<option value="31-40">31-40</option>
+<option value="41-50">41-50</option>
+<option selected="" value="51-60">51-60</option>
+<option value="61-70">61-70</option>
+<option value="71-80">71-80</option>
+<option value="81-90">81-90</option>
+<option value="91-100">91-100</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- How they arrived (three big buttons) -->
+<div class="flex flex-col gap-1.5">
+<span class="text-sm font-medium text-[#0F172A]">How they arrived</span>
+<div class="grid grid-cols-3 gap-2 bg-[#F1F5F9] p-1 rounded-lg" data-toggle-group="arrival">
+<button class="h-10 rounded-md text-sm font-medium bg-[#0B5CAD] text-white transition-colors" data-value="Emergency" type="button">Emergency</button>
+<button class="h-10 rounded-md text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" data-value="Trauma" type="button">Trauma</button>
+<button class="h-10 rounded-md text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" data-value="Urgent" type="button">Urgent</button>
+</div>
+</div>
+<!-- One collapsed link: More details (optional) -->
+<div class="pt-1">
+<button class="inline-flex items-center gap-1 text-sm font-medium text-[#0B5CAD] hover:underline transition-all" id="toggle-more-details" type="button">
+<span>More details (optional)</span>
+<span class="material-symbols-outlined text-[18px]" id="more-details-icon">expand_more</span>
+</button>
+<div class="hidden mt-3 p-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg" id="more-details-panel">
+<label class="flex items-center gap-2 text-sm text-[#0F172A] cursor-pointer">
+<input class="w-4 h-4 text-[#0B5CAD] rounded border-[#E2E8F0] focus:ring-0" type="checkbox">
+<span>Needs isolation room</span>
+</label>
+</div>
+</div>
+</form>
+</div>
+<!-- One button: Estimate stay -->
+<div class="pt-6">
+<button class="w-full h-11 bg-[#0B5CAD] hover:bg-[#084887] text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center" id="estimate-btn" type="button">
+              Estimate stay
+            </button>
+</div>
+</div>
+<!-- Right Card (Result - same height as left card) -->
+<div class="lg:col-span-7 bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between">
+<div>
+<!-- Amber chip: Long-stay alert (#B26A00) -->
+<div class="mb-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FEF3C7] text-[#B26A00] text-xs font-semibold">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>Long-stay alert</span>
+</span>
+</div>
+<!-- Headline: Plan for a long stay (over 50 days) -->
+<h2 class="text-[32px] leading-[40px] font-bold text-[#0F172A] mb-2 tracking-tight" id="result-headline">
+              Plan for a long stay (over 50 days)
+            </h2>
+<p class="text-[16px] font-medium text-[#475569] mb-6">Out of 100 similar patients</p>
+<!-- Three big tiles -->
+<div class="grid grid-cols-3 gap-4 mb-6"><!-- Tile 1 -->
+<div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-[12px] p-6 flex flex-col justify-between" id="tile-short">
+  <span class="text-[72px] leading-[1] font-bold text-[#0F172A] tracking-[-0.02em]" id="num-short">6</span>
+  <span class="text-[16px] text-[#475569] mt-2 leading-snug">Short stay (up to 20 days)</span>
+</div>
+<!-- Tile 2 -->
+<div class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-[12px] p-6 flex flex-col justify-between" id="tile-medium">
+  <span class="text-[72px] leading-[1] font-bold text-[#0F172A] tracking-[-0.02em]" id="num-medium">37</span>
+  <span class="text-[16px] text-[#475569] mt-2 leading-snug">Medium stay (21 to 50 days)</span>
+</div>
+<!-- Tile 3 (Long stay highlighted) -->
+<div class="bg-[#EFF6FF] border border-[#BFDBFE] rounded-[12px] p-6 flex flex-col justify-between" id="tile-long">
+  <span class="text-[72px] leading-[1] font-bold text-[#0B5CAD] tracking-[-0.02em]" id="num-long">57</span>
+  <span class="text-[16px] font-medium text-[#0B5CAD] mt-2 leading-snug">Long stay (over 50 days)</span>
+</div></div>
+</div>
+<!-- Bottom: grey line & link -->
+<div class="flex-1 flex flex-col justify-center gap-3 pt-6 border-t border-[#F1F5F9]"><p class="text-[16px] text-[#475569]">One-patient estimates are rough. Use them for planning only.</p>
+<div>
+  <button class="inline-flex items-center gap-1 text-[16px] font-medium text-[#0B5CAD] hover:underline transition-all" id="toggle-breakdown" type="button">
+    <span>See full breakdown</span>
+    <span class="material-symbols-outlined text-[20px]" id="breakdown-icon">expand_more</span>
+  </button>
+  <div class="hidden mt-3 p-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg text-sm text-[#64748B]" id="breakdown-panel">
+    Detailed day-by-day probabilities are available in the planning export.
+  </div>
+</div></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-4 border-t border-[#E2E8F0] bg-white shrink-0">
+<div class="max-w-[1200px] mx-auto px-10 text-center text-sm text-[#64748B]">
+      Planning aid only. Not for decisions about individual patients.
+    </div>
+</footer>
+<script>
+    (function() {
+      // Toggle button groups (Severity & Arrival)
+      document.querySelectorAll('[data-toggle-group]').forEach(group => {
+        const buttons = group.querySelectorAll('button');
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            buttons.forEach(b => {
+              b.classList.remove('bg-[#0B5CAD]', 'text-white');
+              b.classList.add('text-[#64748B]');
+            });
+            btn.classList.add('bg-[#0B5CAD]', 'text-white');
+            btn.classList.remove('text-[#64748B]');
+          });
+        });
+      });
+
+      // Collapsed "More details (optional)"
+      const moreBtn = document.getElementById('toggle-more-details');
+      const morePanel = document.getElementById('more-details-panel');
+      const moreIcon = document.getElementById('more-details-icon');
+      if (moreBtn && morePanel && moreIcon) {
+        moreBtn.addEventListener('click', () => {
+          const isHidden = morePanel.classList.toggle('hidden');
+          moreIcon.textContent = isHidden ? 'expand_more' : 'expand_less';
+        });
+      }
+
+      // Collapsed "See full breakdown"
+      const breakdownBtn = document.getElementById('toggle-breakdown');
+      const breakdownPanel = document.getElementById('breakdown-panel');
+      const breakdownIcon = document.getElementById('breakdown-icon');
+      if (breakdownBtn && breakdownPanel && breakdownIcon) {
+        breakdownBtn.addEventListener('click', () => {
+          const isHidden = breakdownPanel.classList.toggle('hidden');
+          breakdownIcon.textContent = isHidden ? 'expand_more' : 'expand_less';
+        });
+      }
+
+      // Estimate button behavior
+      const estimateBtn = document.getElementById('estimate-btn');
+      if (estimateBtn) {
+        estimateBtn.addEventListener('click', () => {
+          const dept = document.getElementById('department').value;
+          const severityBtn = document.querySelector('[data-toggle-group="severity"] .bg-\\[\\#0B5CAD\\]');
+          const severity = severityBtn ? severityBtn.getAttribute('data-value') : 'Extreme';
+          const numShort = document.getElementById('num-short');
+          const numMedium = document.getElementById('num-medium');
+          const numLong = document.getElementById('num-long');
+          const headline = document.getElementById('result-headline');
+
+          if (dept === 'radiotherapy' && severity === 'Extreme') {
+            numShort.textContent = '6';
+            numMedium.textContent = '37';
+            numLong.textContent = '57';
+            headline.textContent = 'Plan for a long stay (over 50 days)';
+          } else if (severity === 'Minor') {
+            numShort.textContent = '54';
+            numMedium.textContent = '34';
+            numLong.textContent = '12';
+            headline.textContent = 'Plan for a short stay (up to 20 days)';
+          } else {
+            numShort.textContent = '22';
+            numMedium.textContent = '48';
+            numLong.textContent = '30';
+            headline.textContent = 'Plan for a medium stay (21 to 50 days)';
+          }
+        });
+      }
+    })();
+  </script>
+
+
+</body></html>

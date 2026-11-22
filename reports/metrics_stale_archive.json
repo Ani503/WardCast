@@ -1,0 +1,581 @@
+{
+  "hmm_surge": {
+    "n_states": 3,
+    "bic_selection": {
+      "2": {
+        "k": 2,
+        "train_log_likelihood": 4580.57,
+        "test_log_likelihood": 2224.4,
+        "n_parameters": 9,
+        "bic": -9098.48
+      },
+      "3": {
+        "k": 3,
+        "train_log_likelihood": 4628.98,
+        "test_log_likelihood": 2223.34,
+        "n_parameters": 17,
+        "bic": -9139.59
+      },
+      "4": {
+        "k": 4,
+        "train_log_likelihood": 4822.2,
+        "test_log_likelihood": 2256.51,
+        "n_parameters": 27,
+        "bic": -9456.39
+      }
+    },
+    "state_profiles": {
+      "Normal": {
+        "mean_occupancy": 0.6644027906419536,
+        "mean_daily_change": -0.03256229009051101,
+        "dwell_time_days": 5.1,
+        "diagonal_transition_prob": 0.8025727620180866
+      },
+      "Busy": {
+        "mean_occupancy": 0.8136879916679258,
+        "mean_daily_change": 0.03285134309271447,
+        "dwell_time_days": 5.1,
+        "diagonal_transition_prob": 0.802698318492648
+      },
+      "Surge": {
+        "mean_occupancy": 0.882692197497751,
+        "mean_daily_change": -3.418646141139101e-05,
+        "dwell_time_days": 425.0,
+        "diagonal_transition_prob": 0.997646796589492
+      }
+    },
+    "transition_matrix": [
+      [
+        0.8025727620180866,
+        0.19742723798191344,
+        1.3077494062374302e-38
+      ],
+      [
+        0.16685900115831576,
+        0.802698318492648,
+        0.030442680349036178
+      ],
+      [
+        0.0023531996906121463,
+        3.7198959196654803e-09,
+        0.997646796589492
+      ]
+    ],
+    "eval_ri_test": {
+      "accuracy": 0.3201,
+      "macro_f1": 0.2472,
+      "surge_precision": 0.3171,
+      "surge_recall": 1.0,
+      "surge_f1": 0.4815,
+      "confusion_matrix": [
+        [
+          2,
+          308
+        ],
+        [
+          0,
+          143
+        ]
+      ],
+      "mean_lead_time_days": 19.43,
+      "lead_times": [
+        1,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        9,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "eval_ri_full": {
+      "accuracy": 0.355,
+      "macro_f1": 0.3365,
+      "surge_precision": 0.2882,
+      "surge_recall": 0.9975,
+      "surge_f1": 0.4472,
+      "confusion_matrix": [
+        [
+          142,
+          973
+        ],
+        [
+          1,
+          394
+        ]
+      ],
+      "mean_lead_time_days": 19.55,
+      "lead_times": [
+        2,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        1,
+        7,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        9,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "eval_simulated_hospital": {
+      "accuracy": 0.8621,
+      "macro_f1": 0.7819,
+      "surge_precision": 0.4811,
+      "surge_recall": 1.0,
+      "surge_f1": 0.6497,
+      "confusion_matrix": [
+        [
+          804,
+          151
+        ],
+        [
+          0,
+          140
+        ]
+      ],
+      "mean_lead_time_days": 16.31,
+      "lead_times": [
+        7,
+        20,
+        7,
+        20,
+        20,
+        8,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        10
+      ]
+    },
+    "eval_az_cross_state": {
+      "accuracy": 0.9954,
+      "macro_f1": 0.9374,
+      "surge_precision": 0.7812,
+      "surge_recall": 1.0,
+      "surge_f1": 0.8772,
+      "confusion_matrix": [
+        [
+          1479,
+          7
+        ],
+        [
+          0,
+          25
+        ]
+      ],
+      "mean_lead_time_days": 0.0,
+      "lead_times": [
+        0
+      ]
+    }
+  },
+  "forecast_7d": {
+    "n_walk_forward_evaluations": 60,
+    "horizon_summary": [
+      {
+        "Horizon (Days)": "Day +1",
+        "Model MAE (Beds)": 4.2,
+        "Model MAE (pp)": 3.5,
+        "Persistence MAE (Beds)": 1.82,
+        "Persistence MAE (pp)": 1.51,
+        "7D MA MAE (Beds)": 3.47,
+        "7D MA MAE (pp)": 2.89,
+        "Margin vs Persist (pp)": -1.99,
+        "Margin vs 7D MA (pp)": -0.61,
+        "Beats Baselines": "PARTIAL",
+        "80% Interval Coverage (%)": 68.3,
+        "Surge Precision (%)": 50.0,
+        "Surge Recall (%)": 100.0,
+        "Surge F1": 0.6667
+      },
+      {
+        "Horizon (Days)": "Day +2",
+        "Model MAE (Beds)": 4.42,
+        "Model MAE (pp)": 3.69,
+        "Persistence MAE (Beds)": 2.22,
+        "Persistence MAE (pp)": 1.85,
+        "7D MA MAE (Beds)": 3.52,
+        "7D MA MAE (pp)": 2.94,
+        "Margin vs Persist (pp)": -1.84,
+        "Margin vs 7D MA (pp)": -0.75,
+        "Beats Baselines": "PARTIAL",
+        "80% Interval Coverage (%)": 71.7,
+        "Surge Precision (%)": 50.0,
+        "Surge Recall (%)": 50.0,
+        "Surge F1": 0.5
+      },
+      {
+        "Horizon (Days)": "Day +3",
+        "Model MAE (Beds)": 5.11,
+        "Model MAE (pp)": 4.26,
+        "Persistence MAE (Beds)": 3.28,
+        "Persistence MAE (pp)": 2.74,
+        "7D MA MAE (Beds)": 4.48,
+        "7D MA MAE (pp)": 3.73,
+        "Margin vs Persist (pp)": -1.52,
+        "Margin vs 7D MA (pp)": -0.52,
+        "Beats Baselines": "PARTIAL",
+        "80% Interval Coverage (%)": 73.3,
+        "Surge Precision (%)": 40.0,
+        "Surge Recall (%)": 100.0,
+        "Surge F1": 0.5714
+      },
+      {
+        "Horizon (Days)": "Day +4",
+        "Model MAE (Beds)": 5.72,
+        "Model MAE (pp)": 4.76,
+        "Persistence MAE (Beds)": 3.97,
+        "Persistence MAE (pp)": 3.31,
+        "7D MA MAE (Beds)": 4.68,
+        "7D MA MAE (pp)": 3.9,
+        "Margin vs Persist (pp)": -1.46,
+        "Margin vs 7D MA (pp)": -0.87,
+        "Beats Baselines": "PARTIAL",
+        "80% Interval Coverage (%)": 70.0,
+        "Surge Precision (%)": 33.3,
+        "Surge Recall (%)": 66.7,
+        "Surge F1": 0.4444
+      },
+      {
+        "Horizon (Days)": "Day +5",
+        "Model MAE (Beds)": 5.37,
+        "Model MAE (pp)": 4.47,
+        "Persistence MAE (Beds)": 4.3,
+        "Persistence MAE (pp)": 3.58,
+        "7D MA MAE (Beds)": 5.16,
+        "7D MA MAE (pp)": 4.3,
+        "Margin vs Persist (pp)": -0.89,
+        "Margin vs 7D MA (pp)": -0.17,
+        "Beats Baselines": "PARTIAL",
+        "80% Interval Coverage (%)": 73.3,
+        "Surge Precision (%)": 40.0,
+        "Surge Recall (%)": 66.7,
+        "Surge F1": 0.5
+      },
+      {
+        "Horizon (Days)": "Day +6",
+        "Model MAE (Beds)": 5.49,
+        "Model MAE (pp)": 4.58,
+        "Persistence MAE (Beds)": 4.67,
+        "Persistence MAE (pp)": 3.89,
+        "7D MA MAE (Beds)": 5.41,
+        "7D MA MAE (pp)": 4.51,
+        "Margin vs Persist (pp)": -0.69,
+        "Margin vs 7D MA (pp)": -0.07,
+        "Beats Baselines": "PARTIAL",
+        "80% Interval Coverage (%)": 76.7,
+        "Surge Precision (%)": 0.0,
+        "Surge Recall (%)": 0.0,
+        "Surge F1": 0.0
+      },
+      {
+        "Horizon (Days)": "Day +7",
+        "Model MAE (Beds)": 5.58,
+        "Model MAE (pp)": 4.65,
+        "Persistence MAE (Beds)": 4.68,
+        "Persistence MAE (pp)": 3.9,
+        "7D MA MAE (Beds)": 5.21,
+        "7D MA MAE (pp)": 4.35,
+        "Margin vs Persist (pp)": -0.75,
+        "Margin vs 7D MA (pp)": -0.31,
+        "Beats Baselines": "PARTIAL",
+        "80% Interval Coverage (%)": 83.3,
+        "Surge Precision (%)": 40.0,
+        "Surge Recall (%)": 66.7,
+        "Surge F1": 0.5
+      }
+    ],
+    "mean_mae_model_beds": 5.127142857142857,
+    "mean_mae_model_pp": 4.272857142857142,
+    "mean_mae_persist_beds": 3.5628571428571427,
+    "mean_mae_persist_pp": 2.9685714285714284,
+    "mean_mae_ma7_beds": 4.561428571428571,
+    "mean_mae_ma7_pp": 3.8028571428571434,
+    "mean_interval_coverage_pct": 73.8
+  },
+  "phase_3_em_gaussian_mixture": {
+    "dataset_source": "SPARCS 2014 Exact Days",
+    "sample_size": 200000,
+    "tested_k": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "bic_scores": [
+      484703.43323029263,
+      151345.68239237322,
+      140131.13215364228,
+      -726969.8709608468,
+      -731541.8437567154
+    ],
+    "optimal_k": 6,
+    "components": [
+      {
+        "component": 1,
+        "weight": 0.1442,
+        "weight_pct": 14.42,
+        "log_mean": 0.0,
+        "log_std": 0.001,
+        "geometric_mean_days": 1.0,
+        "typical_range_days": [
+          1.0,
+          1.0
+        ],
+        "interpretation": "Routine / Short Observation (Minor / Elective procedures, normal deliveries)"
+      },
+      {
+        "component": 2,
+        "weight": 0.2375,
+        "weight_pct": 23.75,
+        "log_mean": 0.6931,
+        "log_std": 0.001,
+        "geometric_mean_days": 2.0,
+        "typical_range_days": [
+          2.0,
+          2.0
+        ],
+        "interpretation": "Standard Acute Inpatient (Uncomplicated surgery, acute medical stabilization)"
+      },
+      {
+        "component": 3,
+        "weight": 0.1934,
+        "weight_pct": 19.34,
+        "log_mean": 1.0986,
+        "log_std": 0.001,
+        "geometric_mean_days": 3.0,
+        "typical_range_days": [
+          3.0,
+          3.0
+        ],
+        "interpretation": "Extended Acute Inpatient (Complex surgical recovery, severe systemic infections)"
+      },
+      {
+        "component": 4,
+        "weight": 0.2621,
+        "weight_pct": 26.21,
+        "log_mean": 1.6144,
+        "log_std": 0.2308,
+        "geometric_mean_days": 5.02,
+        "typical_range_days": [
+          4.0,
+          6.3
+        ],
+        "interpretation": "Prolonged / Complex Inpatient (Multiple morbidities, intensive care transition)"
+      },
+      {
+        "component": 5,
+        "weight": 0.1153,
+        "weight_pct": 11.53,
+        "log_mean": 2.3562,
+        "log_std": 0.3576,
+        "geometric_mean_days": 10.55,
+        "typical_range_days": [
+          7.4,
+          15.1
+        ],
+        "interpretation": "Catastrophic / Long-Term Inpatient (Sub-acute rehab, extensive complications, chronic organ failure)"
+      },
+      {
+        "component": 6,
+        "weight": 0.0476,
+        "weight_pct": 4.76,
+        "log_mean": 3.1474,
+        "log_std": 0.6351,
+        "geometric_mean_days": 23.28,
+        "typical_range_days": [
+          12.3,
+          43.9
+        ],
+        "interpretation": "Extended Component 6"
+      }
+    ]
+  },
+  "step4_target_definitions": {
+    "long_stay_11band_definition": "Bands 5 through 10 (>50 days: 51-60, 61-70, 71-80, 81-90, 91-100, More than 100 Days), comprising 19.56% of total admissions.",
+    "long_stay_3class_definition": "Class 2 (Long: >40 days: Bands 4..10, 41-50 through More than 100 Days), comprising 23.25% of total admissions.",
+    "regression_to_band_conversion": "Trained on midpoints [5..110] days. Top band ('More than 100 Days') fixed at 110 days. Mapped to 11 bands via standard 10-day intervals (<=10 -> Band 0, 11-20 -> Band 1, ..., >100 -> Band 10), and to 3 classes via <=20 (Short), 21-40 (Medium), >40 (Long)."
+  },
+  "step5_justifications": {
+    "chosen_operating_point": "Threshold 0.25 boosts Long-Stay Recall from 64.9% to 80.6% (+15.7% sensitivity) while maintaining strong 62.4% precision and 60.8% overall accuracy, ensuring 4 out of 5 long-stay patients are proactively flagged for discharge planning with minimal false alarms.",
+    "selected_threshold_025": "Lowering the decision threshold from 0.50 to 0.25 raises Long-stay recall from 61.25% to 77.51% (+16.26 percentage points), capturing more than 3 out of 4 extended-stay patients while maintaining an acceptable precision of 60.27% (only a 8.1 pp reduction from 68.37%). For hospital bed planning, failing to detect an extended-stay bed blocker is clinically far costlier than a false alarm."
+  },
+  "ward_summing_test_key_conclusion": "Yes, summing patients cancels individual length-of-stay errors dramatically. While individual patient predictions suffer a 56.54% MAPE, aggregation across a standard 100-bed ward reduces MAPE to 3.84% (median error 3.30%, bias +0.47%), outperforming the theoretical 1/sqrt(N) Central Limit Theorem bound (5.65%) because the calibrated probability distribution is virtually unbiased across the inpatient population."
+}

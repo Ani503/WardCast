@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>WardCast - Today</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: '#0B5CAD',
+            alert: '#C62828',
+            slateBg: '#F8FAFC',
+            slateText: '#0F172A',
+            slateMuted: '#475569',
+            slateBorder: '#E2E8F0',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #F8FAFC;
+      color: #0F172A;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between select-none">
+<!-- Top Bar (64px high) -->
+<header class="h-16 w-full bg-white border-b border-slateBorder shrink-0">
+<div class="max-w-[1200px] h-full mx-auto px-10 flex items-center justify-between">
+<div class="flex items-center gap-10 h-full">
+<!-- Logo -->
+<div class="flex items-center gap-2 text-brand">
+<span class="material-symbols-outlined text-[24px]">single_bed</span>
+<span class="font-bold text-[20px] tracking-tight text-slateText">WardCast</span>
+</div>
+<!-- Tabs -->
+<nav class="flex items-center gap-6 h-full text-[15px]">
+<a class="h-full flex items-center font-semibold text-brand border-b-[3px] border-brand px-1" href="#">Today</a>
+<a class="h-full flex items-center font-normal text-slateMuted hover:text-slateText px-1 transition-colors" href="#">New Patient</a>
+<a class="h-full flex items-center font-normal text-slateMuted hover:text-slateText px-1 transition-colors" href="#">What If</a>
+<a class="h-full flex items-center font-normal text-slateMuted hover:text-slateText px-1 transition-colors" href="#">How Accurate</a>
+</nav>
+</div>
+<!-- Right: Grey chip -->
+<div class="flex items-center">
+<span class="px-3.5 py-1 bg-slate-100 border border-slate-200 rounded-full text-[13px] font-normal text-slateMuted">
+          Demo hospital (simulated)
+        </span>
+</div>
+</div>
+</header>
+<!-- Main Content Container -->
+<main class="w-full flex-1 flex flex-col justify-center py-6">
+<div class="w-full max-w-[1200px] mx-auto px-10 flex flex-col gap-6">
+<!-- Status Banner -->
+<section class="w-full bg-[#C62828] text-white rounded-[12px] px-8 h-[96px] flex items-center gap-4 shrink-0 shadow-sm"><span class="material-symbols-outlined text-[36px] shrink-0">warning</span><div class="flex flex-col justify-center"><h1 class="text-[28px] font-bold leading-tight">Critical: beds almost full</h1><p class="text-[18px] font-normal text-white/95 leading-snug">Pause non-urgent admissions. Speed up discharges. Open extra beds.</p></div></section>
+<!-- Key Numbers Row (Identical height: white, 12px rounded, 1px #E2E8F0 border, 24px padding) -->
+<section class="grid grid-cols-3 gap-6"><div class="bg-white border border-slateBorder rounded-[12px] p-6 h-[168px] flex flex-col justify-between"><div class="text-[16px] font-medium text-slateMuted">Beds in use</div><div><div class="flex items-baseline gap-2"><span class="text-[64px] font-bold leading-none tracking-tight text-slateText">110</span><span class="text-[24px] font-semibold text-slateMuted">/ 120</span></div><div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden"><div class="bg-[#C62828] h-full rounded-full" style="width: 91.6%"></div></div></div></div><div class="bg-white border border-slateBorder rounded-[12px] p-6 h-[168px] flex flex-col justify-between"><div class="text-[16px] font-medium text-slateMuted">Beds free</div><div class="flex items-baseline"><span class="text-[64px] font-bold leading-none tracking-tight text-slateText">10</span></div></div><div class="bg-white border border-slateBorder rounded-[12px] p-6 h-[168px] flex flex-col justify-between"><div class="text-[16px] font-medium text-slateMuted">Patients waiting with no bed</div><div class="flex items-baseline"><span class="text-[64px] font-bold leading-none tracking-tight text-slateText">0</span></div></div></section>
+<!-- Lower Row -->
+<section class="grid grid-cols-12 gap-6 items-stretch"><div class="col-span-8 bg-white border border-slateBorder rounded-[12px] p-6 h-[330px] flex flex-col justify-between"><div class="flex items-center justify-between"><div class="text-[20px] font-bold text-slateText">Next 7 days</div><span class="px-3 py-0.5 bg-slate-100 border border-slate-200 rounded-full text-[14px] font-normal text-slateMuted">Rough estimate</span></div><div class="relative w-full flex-1 flex flex-col justify-end pt-2 pb-2"><svg class="w-full h-[180px] overflow-visible" preserveAspectRatio="none" viewBox="0 0 700 180"><line stroke="#C62828" stroke-dasharray="4 4" stroke-width="1.5" x1="30" x2="560" y1="80" y2="80"></line><text fill="#C62828" font-family="Inter" font-size="14" font-weight="500" x="568" y="84">Almost full (90%)</text><polyline fill="none" points="40,46 125,58 210,69 295,81 380,90 465,101 550,110" stroke="#0B5CAD" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="40" cy="46" fill="#FFFFFF" r="4.5" stroke="#0B5CAD" stroke-width="2.5"></circle><text fill="#0F172A" font-family="Inter" font-size="14" font-weight="600" text-anchor="middle" x="40" y="32">91.6%</text><circle cx="125" cy="58" fill="#FFFFFF" r="4" stroke="#0B5CAD" stroke-width="2.5"></circle><circle cx="210" cy="69" fill="#FFFFFF" r="4" stroke="#0B5CAD" stroke-width="2.5"></circle><circle cx="295" cy="81" fill="#FFFFFF" r="4" stroke="#0B5CAD" stroke-width="2.5"></circle><circle cx="380" cy="90" fill="#FFFFFF" r="4" stroke="#0B5CAD" stroke-width="2.5"></circle><circle cx="465" cy="101" fill="#FFFFFF" r="4" stroke="#0B5CAD" stroke-width="2.5"></circle><circle cx="550" cy="110" fill="#FFFFFF" r="4.5" stroke="#0B5CAD" stroke-width="2.5"></circle><text fill="#0F172A" font-family="Inter" font-size="14" font-weight="600" text-anchor="middle" x="550" y="132">89.4%</text></svg><div class="grid grid-cols-7 text-center pt-2 text-[14px] text-slateMuted font-medium"><span>Day 1</span><span>Day 2</span><span>Day 3</span><span>Day 4</span><span>Day 5</span><span>Day 6</span><span>Day 7</span></div></div></div><div class="col-span-4 bg-white border border-slateBorder rounded-[12px] p-6 h-[330px] flex flex-col justify-between"><div><h2 class="text-[22px] font-bold text-slateText mb-4">Update today's count</h2><label for="bed-input" class="block text-[16px] font-medium text-slateMuted mb-2">Beds in use today</label><div class="flex items-center gap-3"><div class="relative flex-1"><input class="w-full h-11 bg-slate-50 border border-slateBorder rounded-lg px-3.5 pr-14 text-[16px] font-semibold text-slateText focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand" id="bed-input" type="number" value="110"><span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-[14px] text-slateMuted pointer-events-none">in use</span></div><button class="h-11 px-5 bg-[#0B5CAD] hover:bg-[#094d92] active:bg-[#073f78] text-white text-[14px] font-medium rounded-lg transition-colors cursor-pointer" id="update-btn" type="button">Update</button></div></div><div class="pt-4 border-t border-slateBorder"><button class="text-[14px] text-brand hover:underline font-medium cursor-pointer" id="load-demo-btn" type="button">Load demo data</button></div></div></section>
+</div>
+</main>
+<!-- Centered Footer (14px muted) -->
+<footer class="w-full py-4 text-center shrink-0">
+<p class="text-[14px] text-slateMuted">
+      Planning aid only. Not for decisions about individual patients.
+    </p>
+</footer>
+<script>
+    (function() {
+      const updateBtn = document.getElementById('update-btn');
+      const loadDemoBtn = document.getElementById('load-demo-btn');
+      const bedInput = document.getElementById('bed-input');
+
+      if (updateBtn && bedInput) {
+        updateBtn.addEventListener('click', function() {
+          // Handled without extra verbose labels
+        });
+      }
+
+      if (loadDemoBtn && bedInput) {
+        loadDemoBtn.addEventListener('click', function() {
+          bedInput.value = '110';
+        });
+      }
+    })();
+  </script>
+
+
+</body></html>

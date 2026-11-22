@@ -1,0 +1,23 @@
+Ward Type,Ward Size (N),Method,MAPE (%),Median APE (%),Mean % Bias,Benchmark e1 / sqrt(N) (%),Rel Improvement vs Overall Mean (%),Rel Improvement vs Dept Mean (%)
+Random Patient Sample (Best Case),1,Expected Days (Soft Bayes),56.54,27.97,0.09,56.54,35.52,35.49
+Random Patient Sample (Best Case),1,Discrete Band Mode,46.41,28.57,-10.37,46.41,47.07,47.05
+Random Patient Sample (Best Case),1,Baseline: Predict Overall Mean,87.69,41.67,-0.16,87.69,0.0,-0.04
+Random Patient Sample (Best Case),1,Baseline: Predict Dept Mean,87.65,41.44,-0.15,87.65,0.04,0.0
+Random Patient Sample (Best Case),20,Expected Days (Soft Bayes),8.51,7.18,0.53,12.64,29.45,29.48
+Random Patient Sample (Best Case),20,Discrete Band Mode,12.34,11.58,-10.02,10.38,-2.32,-2.27
+Random Patient Sample (Best Case),20,Baseline: Predict Overall Mean,12.06,10.27,1.07,19.61,0.0,0.05
+Random Patient Sample (Best Case),20,Baseline: Predict Dept Mean,12.07,10.06,1.09,19.6,-0.05,0.0
+Random Patient Sample (Best Case),50,Expected Days (Soft Bayes),5.42,4.78,0.23,8.0,27.62,27.46
+Random Patient Sample (Best Case),50,Discrete Band Mode,10.77,10.36,-10.32,6.56,-43.85,-44.17
+Random Patient Sample (Best Case),50,Baseline: Predict Overall Mean,7.49,6.23,0.52,12.4,0.0,-0.22
+Random Patient Sample (Best Case),50,Baseline: Predict Dept Mean,7.47,6.23,0.53,12.4,0.22,0.0
+Random Patient Sample (Best Case),100,Expected Days (Soft Bayes),3.84,3.3,0.47,5.65,27.05,27.01
+Random Patient Sample (Best Case),100,Discrete Band Mode,10.18,10.44,-10.1,4.64,-93.26,-93.36
+Random Patient Sample (Best Case),100,Baseline: Predict Overall Mean,5.27,4.28,0.71,8.77,0.0,-0.05
+Random Patient Sample (Best Case),100,Baseline: Predict Dept Mean,5.26,4.37,0.73,8.77,0.05,0.0
+Same Department (Gynecology),20,Expected Days (Soft Bayes),8.75,7.08,1.49,12.64,30.01,30.01
+Same Department (Gynecology),50,Expected Days (Soft Bayes),5.53,4.51,0.74,8.0,28.65,28.65
+Same Department (Radiotherapy),20,Expected Days (Soft Bayes),9.15,8.07,-1.46,12.64,27.34,27.34
+Same Department (Radiotherapy),50,Expected Days (Soft Bayes),5.74,4.78,-1.81,8.0,23.79,23.79
+Same Department (Anesthesia),20,Expected Days (Soft Bayes),8.16,6.87,1.61,12.64,33.9,33.9
+Same Department (Anesthesia),50,Expected Days (Soft Bayes),5.28,4.37,0.91,8.0,29.41,29.41

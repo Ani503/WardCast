@@ -1,0 +1,84 @@
+/* WardCast Clinical Design System Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800;900&display=swap');
+
+:root {
+  --color-brand: #0B5CAD;
+  --color-brand-hover: #084887;
+  --color-bg: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #0F172A;
+  --color-text-muted: #475569;
+  --color-border: #E2E8F0;
+  
+  --color-critical: #C62828;
+  --color-critical-bg: #FDE8E8;
+  --color-warning: #B26A00;
+  --color-warning-bg: #FEF3C7;
+  --color-normal: #2E7D32;
+  --color-normal-bg: #DCFCE7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbars while allowing scroll if ever needed */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Number input spinners */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Pulse animation for board */
+@keyframes subtleGlow {
+  0% {
+    box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.12);
+  }
+  100% {
+    box-shadow: 0 20px 45px -5px rgba(220, 38, 38, 0.22);
+  }
+}
+.pulsing-subtle {
+  animation: subtleGlow 3s ease-in-out infinite alternate;
+}
+
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: loadingShimmer 1.5s infinite;
+  border-radius: 6px;
+}
+@keyframes loadingShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Tab display */
+.tab-pane {
+  display: none !important;
+}
+.tab-pane.active {
+  display: flex !important;
+}

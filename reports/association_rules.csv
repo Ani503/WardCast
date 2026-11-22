@@ -1,0 +1,16 @@
+rank,antecedent,support,confidence,lift
+1,"Dept_Dept_gynecology, AdmType_Adm_Trauma, Visitors_Visitors_High_5+",0.0319,0.7015,3.59
+2,"AdmType_Adm_Trauma, Visitors_Visitors_High_5+",0.0424,0.7004,3.58
+3,"Severity_Severity_Moderate, Visitors_Visitors_High_5+",0.0467,0.681,3.48
+4,"Dept_Dept_gynecology, Severity_Severity_Moderate, Visitors_Visitors_High_5+",0.0354,0.679,3.47
+5,Visitors_Visitors_High_5+,0.0833,0.6567,3.36
+6,"Age_Group_Middle_31-60, Visitors_Visitors_High_5+",0.045,0.6559,3.35
+7,"Deposit_Deposit_Med_4-6k, Visitors_Visitors_High_5+",0.0402,0.6555,3.35
+8,"Dept_Dept_gynecology, Visitors_Visitors_High_5+",0.0638,0.6509,3.33
+9,"Dept_Dept_gynecology, Deposit_Deposit_Med_4-6k, Visitors_Visitors_High_5+",0.0304,0.649,3.32
+10,"Dept_Dept_gynecology, Age_Group_Middle_31-60, Visitors_Visitors_High_5+",0.0351,0.6486,3.31
+11,"Rooms_Rooms_Med_3-4, Visitors_Visitors_High_5+",0.0457,0.6463,3.3
+12,"Deposit_Deposit_Low_<4k, Visitors_Visitors_High_5+",0.0322,0.6458,3.3
+13,"BedGrade_BedGrade_3, Visitors_Visitors_High_5+",0.0362,0.6448,3.3
+14,"Dept_Dept_gynecology, Rooms_Rooms_Med_3-4, Visitors_Visitors_High_5+",0.0352,0.643,3.29
+15,"AdmType_Adm_Emergency, Visitors_Visitors_High_5+",0.0319,0.6191,3.16

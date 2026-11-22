@@ -1,0 +1,152 @@
+{
+  "benchmark_states": [
+    "TX",
+    "CA",
+    "NY",
+    "AZ",
+    "RI"
+  ],
+  "date_range": [
+    "2020-01-01",
+    "2024-04-20"
+  ],
+  "mean_occupancy_rate": 0.745,
+  "baseline_occupancy_rate": 0.72,
+  "day_to_day_volatility": 0.0228,
+  "surge_threshold": 0.9,
+  "surge_frequency_pct": 5.54,
+  "mean_surge_duration_days": 3.0,
+  "median_surge_duration_days": 2.0,
+  "max_surge_duration_days": 25,
+  "weekday_multipliers": {
+    "Monday": 0.9799,
+    "Tuesday": 1.0059,
+    "Wednesday": 1.0183,
+    "Thursday": 1.0171,
+    "Friday": 1.012,
+    "Saturday": 0.9899,
+    "Sunday": 0.9768
+  },
+  "state_breakdown": {
+    "TX": {
+      "date_range": [
+        "2020-01-01",
+        "2024-04-20"
+      ],
+      "total_days": 1572,
+      "mean_occupancy": 0.7529,
+      "std_occupancy": 0.0628,
+      "day_to_day_volatility": 0.0203,
+      "surge_days_count": 2,
+      "surge_frequency_pct": 0.13,
+      "surge_episodes_count": 2,
+      "mean_surge_duration_days": 1.0,
+      "max_surge_duration_days": 1,
+      "weekday_multipliers": {
+        "0": 0.9835,
+        "1": 1.0094,
+        "2": 1.0135,
+        "3": 1.0166,
+        "4": 1.0097,
+        "5": 0.99,
+        "6": 0.9772
+      }
+    },
+    "CA": {
+      "date_range": [
+        "2020-02-04",
+        "2024-04-20"
+      ],
+      "total_days": 1538,
+      "mean_occupancy": 0.742,
+      "std_occupancy": 0.09,
+      "day_to_day_volatility": 0.0215,
+      "surge_days_count": 0,
+      "surge_frequency_pct": 0.0,
+      "surge_episodes_count": 0,
+      "mean_surge_duration_days": 0.0,
+      "max_surge_duration_days": 0,
+      "weekday_multipliers": {
+        "0": 0.9794,
+        "1": 1.0016,
+        "2": 1.0168,
+        "3": 1.016,
+        "4": 1.013,
+        "5": 0.9941,
+        "6": 0.9789
+      }
+    },
+    "NY": {
+      "date_range": [
+        "2020-03-14",
+        "2024-04-20"
+      ],
+      "total_days": 1499,
+      "mean_occupancy": 0.7636,
+      "std_occupancy": 0.0476,
+      "day_to_day_volatility": 0.0154,
+      "surge_days_count": 1,
+      "surge_frequency_pct": 0.07,
+      "surge_episodes_count": 1,
+      "mean_surge_duration_days": 1.0,
+      "max_surge_duration_days": 1,
+      "weekday_multipliers": {
+        "0": 0.9839,
+        "1": 1.0095,
+        "2": 1.0225,
+        "3": 1.0191,
+        "4": 1.0099,
+        "5": 0.9812,
+        "6": 0.974
+      }
+    },
+    "AZ": {
+      "date_range": [
+        "2020-03-02",
+        "2024-04-20"
+      ],
+      "total_days": 1511,
+      "mean_occupancy": 0.7486,
+      "std_occupancy": 0.0618,
+      "day_to_day_volatility": 0.0229,
+      "surge_days_count": 25,
+      "surge_frequency_pct": 1.65,
+      "surge_episodes_count": 1,
+      "mean_surge_duration_days": 25.0,
+      "max_surge_duration_days": 25,
+      "weekday_multipliers": {
+        "0": 0.9687,
+        "1": 1.0035,
+        "2": 1.022,
+        "3": 1.0208,
+        "4": 1.014,
+        "5": 0.9952,
+        "6": 0.9757
+      }
+    },
+    "RI": {
+      "date_range": [
+        "2020-03-03",
+        "2024-04-20"
+      ],
+      "total_days": 1510,
+      "mean_occupancy": 0.8709,
+      "std_occupancy": 0.0562,
+      "day_to_day_volatility": 0.031,
+      "surge_days_count": 395,
+      "surge_frequency_pct": 26.16,
+      "surge_episodes_count": 136,
+      "mean_surge_duration_days": 2.9,
+      "max_surge_duration_days": 13,
+      "weekday_multipliers": {
+        "0": 0.9839,
+        "1": 1.0054,
+        "2": 1.0165,
+        "3": 1.0131,
+        "4": 1.0133,
+        "5": 0.9892,
+        "6": 0.9784
+      }
+    }
+  }
+}

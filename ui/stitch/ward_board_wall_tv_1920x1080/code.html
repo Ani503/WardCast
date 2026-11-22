@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ward Board - Wall Display</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+          },
+          colors: {
+            alert: {
+              bg: '#fef2f2',
+              card: '#fee2e2',
+              border: '#fca5a5',
+              dark: '#991b1b',
+              badge: '#dc2626',
+              text: '#7f1d1d',
+              actionBg: '#ffffff',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #fef2f2;
+      -webkit-font-smoothing: antialiased;
+    }
+    .pulsing-subtle {
+      animation: subtleGlow 3s ease-in-out infinite alternate;
+    }
+    @keyframes subtleGlow {
+      0% {
+        box-shadow: 0 25px 60px -15px rgba(220, 38, 38, 0.15);
+      }
+      100% {
+        box-shadow: 0 35px 80px -10px rgba(220, 38, 38, 0.28);
+      }
+    }
+  </style>
+</head>
+<body class="w-screen h-screen flex flex-col justify-between p-16 select-none bg-gradient-to-b from-[#fff5f5] via-[#fee2e2]/60 to-[#fecaca]/50 text-[#7f1d1d]">
+
+  <!-- Top App & Location Header -->
+  <header class="w-full flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <div class="w-14 h-14 rounded-2xl bg-[#dc2626] text-white flex items-center justify-center shadow-lg shadow-red-500/20">
+        <!-- Bed / Ward Hospital Icon -->
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M5 10v6m14-6v6M3 18v2m18-2v2M4 6h4a2 2 0 012 2v2H2V8a2 2 0 012-2z" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-3xl font-extrabold tracking-tight text-[#991b1b]">WardCast</h1>
+        <p class="text-lg font-bold uppercase tracking-wider text-[#b91c1c]/80">Ward Live Monitor</p>
+      </div>
+    </div>
+
+    <!-- Status Pill Indicator -->
+    <div class="flex items-center gap-3 bg-white/90 backdrop-blur-md px-6 py-3 rounded-full border border-red-200/80 shadow-sm">
+      <span class="relative flex h-4 w-4">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-4 w-4 bg-red-600"></span>
+      </span>
+      <span class="text-xl font-bold tracking-wide text-[#991b1b]">LIVE BROADCAST</span>
+    </div>
+  </header>
+
+  <!-- Central Display Board (Readable from across a large room) -->
+  <main class="w-full max-w-6xl mx-auto flex flex-col items-center text-center my-auto">
+    
+    <!-- Massive Status Banner Card -->
+    <div class="w-full bg-white/80 backdrop-blur-xl border-2 border-red-300 rounded-[2.5rem] p-14 pulsing-subtle flex flex-col items-center">
+      
+      <!-- Status Badge & Icon -->
+      <div class="inline-flex items-center gap-6 bg-[#dc2626] text-white px-12 py-5 rounded-3xl shadow-xl shadow-red-600/30 mb-10">
+        <svg class="w-16 h-16 animate-bounce" fill="none" stroke="currentColor" stroke-width="2.75" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 18h.007v.008H12v-.008z" />
+        </svg>
+        <span class="text-7xl font-black tracking-widest">CRITICAL</span>
+      </div>
+
+      <!-- Bed Numbers Block -->
+      <div class="my-3">
+        <p class="text-6xl xl:text-7xl font-extrabold tracking-tight text-[#1e293b] leading-tight">
+          <span class="text-[#991b1b] font-black">110</span> of <span class="font-bold">120</span> beds in use
+          <span class="mx-3 text-[#94a3b8] font-light">·</span>
+          <span class="text-[#dc2626] font-black">10</span> free
+        </p>
+      </div>
+
+      <!-- Capacity Visual Scale -->
+      <div class="w-full max-w-3xl my-8">
+        <div class="w-full h-5 bg-red-100 rounded-full overflow-hidden p-1 border border-red-200">
+          <div class="h-full bg-gradient-to-r from-red-500 to-[#dc2626] rounded-full" style="width: 91.66%;"></div>
+        </div>
+        <div class="flex justify-between items-center text-xl font-bold text-red-900/70 mt-3 px-1">
+          <span>0 beds</span>
+          <span class="text-red-700 font-extrabold">92% Capacity Occupied</span>
+          <span>120 capacity</span>
+        </div>
+      </div>
+
+      <!-- Action Directive Box -->
+      <div class="w-full max-w-4xl bg-[#fff1f2] border-2 border-[#fecdd3] rounded-2xl py-6 px-10 shadow-sm mt-2">
+        <p class="text-3xl xl:text-4xl font-extrabold text-[#9f1239] tracking-tight leading-snug">
+          Pause non-urgent admissions. Speed up discharges.
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Clean TV Footer -->
+  <footer class="w-full flex items-center justify-between text-2xl font-bold text-[#991b1b]/80 border-t border-red-200/80 pt-8">
+    <div class="flex items-center gap-3">
+      <svg class="w-7 h-7 text-[#b91c1c]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>Updated 14:32</span>
+    </div>
+
+    <div class="flex items-center gap-3 bg-white/70 px-6 py-2.5 rounded-xl border border-red-200/70">
+      <svg class="w-7 h-7 text-[#b91c1c]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      </svg>
+      <span>Demo hospital (simulated)</span>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+Horizon (Days),Data Source,Model Description,Model MAE (pp),Persistence MAE (pp),7D MA MAE (pp),Seasonal-Naive MAE (pp),Paired Diff vs Persist (pp),95% CI Paired Diff vs Persist (pp),Beats Baselines
+Day +1,"Real HHS State Aggregates (480 origins: RI, AZ, SC, DE)",Autoregressive Mean-Reversion (rho=0.95^h),1.44,1.47,1.67,1.66,-0.029,"[-0.04, -0.02]",beats all baselines
+Day +2,"Real HHS State Aggregates (480 origins: RI, AZ, SC, DE)",Autoregressive Mean-Reversion (rho=0.95^h),2.21,2.3,1.75,1.65,-0.091,"[-0.10, -0.08]",loses to MA7 and seasonal-naive
+Day +3,"Real HHS State Aggregates (480 origins: RI, AZ, SC, DE)",Autoregressive Mean-Reversion (rho=0.95^h),2.58,2.76,1.82,1.66,-0.177,"[-0.20, -0.15]",loses to MA7 and seasonal-naive
+Day +4,"Real HHS State Aggregates (480 origins: RI, AZ, SC, DE)",Autoregressive Mean-Reversion (rho=0.95^h),2.58,2.81,1.87,1.67,-0.225,"[-0.25, -0.20]",loses to MA7 and seasonal-naive
+Day +5,"Real HHS State Aggregates (480 origins: RI, AZ, SC, DE)",Autoregressive Mean-Reversion (rho=0.95^h),2.25,2.45,1.91,1.68,-0.2,"[-0.23, -0.17]",loses to MA7 and seasonal-naive
+Day +6,"Real HHS State Aggregates (480 origins: RI, AZ, SC, DE)",Autoregressive Mean-Reversion (rho=0.95^h),1.8,1.91,1.95,1.69,-0.105,"[-0.15, -0.06]",loses to seasonal-naive
+Day +7,"Real HHS State Aggregates (480 origins: RI, AZ, SC, DE)",Autoregressive Mean-Reversion (rho=0.95^h),1.68,1.69,2.02,1.69,-0.019,"[-0.07, +0.04]",tie with persistence and seasonal-naive

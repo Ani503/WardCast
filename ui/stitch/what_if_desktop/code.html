@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0B5CAD",
+            borderCol: "#E2E8F0",
+            bgCol: "#F8FAFC"
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #F8FAFC;
+        font-family: 'Inter', sans-serif;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] text-[#0F172A] flex flex-col h-screen overflow-hidden antialiased">
+<!-- Top bar (64px high) -->
+<header class="h-16 min-h-[64px] max-h-[64px] w-full bg-white border-b border-[#E2E8F0] z-50">
+<div class="h-full max-w-[1200px] mx-auto px-10 flex items-center justify-between">
+<div class="flex items-center gap-10 h-full">
+<!-- Logo -->
+<div class="flex items-center gap-2 text-[#0B5CAD]">
+<span class="material-symbols-outlined text-[24px]">single_bed</span>
+<span class="font-bold text-[20px] text-[#0F172A] tracking-tight">WardCast</span>
+</div>
+<!-- Tabs -->
+<nav class="flex items-center gap-8 h-full">
+<a class="h-full flex items-center px-1 text-[15px] font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" href="#">Today</a>
+<a class="h-full flex items-center px-1 text-[15px] font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" href="#">New Patient</a>
+<a class="h-full flex items-center px-1 text-[15px] font-semibold text-[#0B5CAD] border-b-[3px] border-[#0B5CAD]" href="#">What If</a>
+<a class="h-full flex items-center px-1 text-[15px] font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" href="#">How Accurate</a>
+</nav>
+</div>
+<!-- Right grey chip & avatar -->
+<div class="flex items-center gap-4">
+<span class="px-3 py-1 bg-[#F1F5F9] text-[#64748B] text-[13px] font-medium rounded-full">Demo hospital (simulated)</span>
+<div class="w-8 h-8 rounded-full bg-[#0B5CAD] text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Body Frame (centered 1200px, 40px padding, no scroll, no blank space > 48px) -->
+<main class="flex-1 w-full max-w-[1200px] mx-auto px-10 py-5 flex flex-col justify-between overflow-hidden">
+<!-- Top Controller Block -->
+<section class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex flex-col gap-2 min-w-[380px]">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F1F5F9] text-[#64748B] text-[13px] font-medium w-fit">
+<span>Practice scenario on a simulated hospital. Not a prediction.</span>
+</div>
+<h1 class="text-[32px] font-bold text-[#0F172A] leading-tight tracking-tight">What if more patients arrive?</h1>
+</div>
+<!-- Slider & Controls -->
+<div class="flex-1 max-w-[480px] flex flex-col justify-center">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-[14px] font-medium text-[#64748B]">How many more patients arrive?</span>
+<span class="text-[20px] font-bold text-[#0B5CAD]" id="slider-val">+35%</span>
+</div>
+<div class="relative flex items-center h-6">
+<input class="w-full h-2 bg-[#E2E8F0] rounded-full appearance-none cursor-pointer accent-[#0B5CAD] focus:outline-none" id="surge-slider" max="60" min="0" step="5" type="range" value="35">
+</div>
+<div class="flex justify-between text-[13px] text-[#64748B] mt-1 font-medium"><span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateSurge(0)">0%</span>
+<span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateSurge(15)">+15%</span>
+<span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateSurge(30)">+30%</span>
+<span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateSurge(45)">+45%</span>
+<span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateSurge(60)">+60%</span></div>
+</div>
+<!-- Button -->
+<div>
+<button class="h-11 px-5 bg-[#0B5CAD] hover:bg-[#094d92] text-white rounded-[8px] text-[15px] font-semibold flex items-center gap-2 transition-colors active:scale-95" id="run-sim-btn" onclick="refreshVisuals()">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Show what happens</span>
+</button>
+</div>
+</section>
+<!-- Three Big Numbers (Equal height, 24px gap, 24px padding, 16px medium muted labels) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[168px]">
+<span class="text-[16px] font-medium text-[#64748B]">Beds in use</span>
+<div class="text-[38px] xl:text-[44px] font-bold text-[#0F172A] tracking-tight leading-none my-auto whitespace-nowrap" id="metric-beds">
+          77% <span class="text-[26px] xl:text-[30px] font-medium text-[#64748B] mx-1">→</span> 98%
+        </div>
+<div class="h-1"></div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[168px]">
+<span class="text-[16px] font-medium text-[#64748B]">Days over 90% full</span>
+<div class="text-[64px] font-bold text-[#0F172A] tracking-tight leading-none my-auto" id="metric-warning-days">46 <span class="text-[28px] font-medium text-[#64748B]">of 60</span></div>
+<div class="h-1"></div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[168px]">
+<span class="text-[16px] font-medium text-[#64748B]">Days with patients and no bed</span>
+<div class="text-[64px] font-bold text-[#C62828] tracking-tight leading-none my-auto" id="metric-unmet-days">28 <span class="text-[28px] font-medium text-[#64748B]">of 60</span></div>
+<div class="h-1"></div>
+</div>
+</section>
+<!-- Chart Block (Next 60 days) -->
+<section class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between flex-1 min-h-[300px] mt-1">
+<div class="flex items-center justify-between mb-2">
+<h2 class="text-[20px] font-bold text-[#0F172A]">Next 60 days</h2>
+</div>
+<!-- Plotted Chart Area -->
+<div class="relative w-full h-[180px] flex items-center pr-28"><svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 1000 180">
+<defs>
+<clipPath id="overflowClip">
+<rect x="0" y="0" width="1000" height="65"></rect>
+</clipPath>
+</defs>
+<!-- Flat dashed reference line for All 120 beds at y = 65 -->
+<line stroke="#94A3B8" stroke-dasharray="6 6" stroke-width="1.5" x1="0" x2="1000" y1="65" y2="65"></line>
+<!-- Shaded light red region where line exceeds 120 beds (y < 65) -->
+<g clip-path="url(#overflowClip)">
+<path d="M 0 145 C 150 145, 250 85, 350 52 C 450 25, 700 28, 1000 35 L 1000 65 L 0 65 Z" fill="#FEE2E2" id="overflow-area"></path>
+</g>
+<!-- Line 3px #0B5CAD for beds in use: rising from 77% to 95% over first ~3 weeks, staying 97-100% to day 60 -->
+<path d="M 0 145 C 150 145, 250 85, 350 52 C 450 25, 700 28, 1000 35" fill="none" id="surge-path" stroke="#0B5CAD" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Value dots & labels on first and last point only -->
+<circle cx="0" cy="145" fill="#0B5CAD" r="4"></circle>
+<text fill="#0B5CAD" font-size="12" font-weight="600" id="val-first" x="6" y="140">77%</text>
+<circle cx="1000" cy="35" fill="#0B5CAD" id="last-dot" r="4"></circle>
+<text fill="#0B5CAD" font-size="12" font-weight="600" id="val-last" x="960" y="28">98%</text>
+</svg>
+<!-- Red Overflow Callout Label -->
+<div class="absolute left-[58%] top-[10px] -translate-x-1/2 bg-white border border-[#FCA5A5] text-[#C62828] text-[13px] font-medium px-3 py-1 rounded-full shadow-sm" id="overflow-badge">
+Patients with no bed (up to 16 at the worst)
+</div>
+<!-- Label placed at the far right outside the plotted line -->
+<div class="absolute right-0 top-[65px] -translate-y-1/2 font-medium text-[14px] text-[#64748B] pl-3 whitespace-nowrap">
+All 120 beds
+</div></div>
+<!-- Axis Labels (14px) -->
+<div class="w-full flex justify-between text-[14px] text-[#64748B] pt-3 pr-28 border-t border-[#F1F5F9] font-normal">
+<span>Day 1</span>
+<span>Day 15</span>
+<span>Day 30</span>
+<span>Day 45</span>
+<span>Day 60</span>
+</div>
+</section>
+</main>
+<!-- Footer (centred 14px muted) -->
+<footer class="h-10 min-h-[40px] flex items-center justify-center border-t border-[#E2E8F0] bg-white">
+<p class="text-[14px] text-[#64748B]">Planning aid only. Not for decisions about individual patients.</p>
+</footer>
+<script>
+    const slider = document.getElementById('surge-slider');
+    const sliderVal = document.getElementById('slider-val');
+    const metricBeds = document.getElementById('metric-beds');
+    const metricWarning = document.getElementById('metric-warning-days');
+    const metricUnmet = document.getElementById('metric-unmet-days');
+    const overflowBadge = document.getElementById('overflow-badge');
+    const surgePath = document.getElementById('surge-path');
+    const overflowArea = document.getElementById('overflow-area');
+    const valLast = document.getElementById('val-last');
+    const lastDot = document.getElementById('last-dot');
+
+    const surgeData = {
+      0: { beds: '77% → 77%', warn: '4 out of 60', unmet: '0', maxOver: 0, peakY: 135, endY: 145, endPct: '77%' },
+      15: { beds: '77% → 85%', warn: '18 out of 60', unmet: '3', maxOver: 3, peakY: 88, endY: 140, endPct: '80%' },
+      30: { beds: '77% → 94%', warn: '38 out of 60', unmet: '19', maxOver: 11, peakY: 48, endY: 135, endPct: '84%' },
+      35: { beds: '77% → 98%', warn: '46 out of 60', unmet: '28', maxOver: 16, peakY: 32, endY: 130, endPct: '86%' },
+      45: { beds: '77% → 106%', warn: '54 out of 60', unmet: '41', maxOver: 24, peakY: 18, endY: 120, endPct: '91%' },
+      60: { beds: '77% → 119%', warn: '59 out of 60', unmet: '52', maxOver: 38, peakY: 6, endY: 105, endPct: '98%' }
+    };
+
+    function updateSurge(val) {
+      slider.value = val;
+      applySurge(val);
+    }
+
+    function applySurge(val) {
+      sliderVal.textContent = '+' + val + '%';
+      const closest = Object.keys(surgeData).reduce((prev, curr) => 
+        Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev
+      );
+      const data = surgeData[closest];
+
+      if (data.beds.includes(' → ')) {
+        const parts = data.beds.split(' → ');
+        metricBeds.innerHTML = `${parts[0]} <span class="text-[26px] xl:text-[30px] font-medium text-[#64748B] mx-1">→</span> ${parts[1]}`;
+      } else {
+        metricBeds.textContent = data.beds;
+      }
+      metricWarning.innerHTML = `${data.warn.split(' ')[0]} <span class="text-[28px] font-medium text-[#64748B]">out of 60</span>`;
+      metricUnmet.innerHTML = `${data.unmet} <span class="text-[28px] font-medium text-[#64748B]">of 60</span>`;
+
+      const y = data.peakY;
+      const endY = data.endY;
+      const pathD = `M 0 145 Q 120 140, 240 ${Math.min(140, y + 45)} T 480 ${y} T 720 ${Math.min(140, y + 20)} T 880 120 T 1000 ${endY}`;
+      
+      surgePath.setAttribute('d', pathD);
+      overflowArea.setAttribute('d', `${pathD} L 1000 65 L 0 65 Z`);
+
+      lastDot.setAttribute('cy', endY);
+      valLast.setAttribute('y', endY - 6);
+      valLast.textContent = data.endPct;
+
+      if (data.maxOver > 0) {
+        overflowBadge.style.display = 'block';
+        overflowBadge.style.top = Math.max(2, y - 28) + 'px';
+        overflowBadge.textContent = `Patients with no bed (up to ${data.maxOver} at the worst)`;
+      } else {
+        overflowBadge.style.display = 'none';
+      }
+    }
+
+    slider.addEventListener('input', (e) => {
+      applySurge(e.target.value);
+    });
+
+    function refreshVisuals() {
+      const btn = document.getElementById('run-sim-btn');
+      btn.classList.add('opacity-75');
+      setTimeout(() => {
+        btn.classList.remove('opacity-75');
+        applySurge(slider.value);
+      }, 150);
+    }
+  </script>
+
+
+</body></html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WardCast - Clinical Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: '#0B5CAD',
+            'brand-hover': '#084887',
+            alert: '#C62828',
+            slateBg: '#F8FAFC',
+            slateText: '#0F172A',
+            slateMuted: '#475569',
+            slateBorder: '#E2E8F0',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="min-h-screen flex flex-col justify-between select-none bg-[#F8FAFC] text-[#0F172A]">
+
+  <!-- Top Bar (64px fixed height) -->
+  <header class="h-16 w-full bg-white border-b border-[#E2E8F0] shrink-0 sticky top-0 z-50">
+    <div class="max-w-[1200px] h-full mx-auto px-10 flex items-center justify-between">
+      <div class="flex items-center gap-10 h-full">
+        <!-- Logo -->
+        <a href="#today" class="flex items-center gap-2 text-[#0B5CAD] no-underline">
+          <span class="material-symbols-outlined text-[26px]">single_bed</span>
+          <span class="font-bold text-[20px] tracking-tight text-[#0F172A]">WardCast</span>
+        </a>
+        <!-- Tabs -->
+        <nav class="flex items-center gap-6 h-full text-[15px]">
+          <a class="h-full flex items-center font-semibold text-[#0B5CAD] border-b-[3px] border-[#0B5CAD] px-1 transition-colors" data-tab-target="today" href="#today">Today</a>
+          <a class="h-full flex items-center font-normal text-[#475569] hover:text-[#0F172A] px-1 transition-colors" data-tab-target="new-patient" href="#new-patient">New Patient</a>
+          <a class="h-full flex items-center font-normal text-[#475569] hover:text-[#0F172A] px-1 transition-colors" data-tab-target="what-if" href="#what-if">What If</a>
+          <a class="h-full flex items-center font-normal text-[#475569] hover:text-[#0F172A] px-1 transition-colors" data-tab-target="how-accurate" href="#how-accurate">How Accurate</a>
+        </nav>
+      </div>
+      <!-- Right: Honest Simulation Chip & Board Link -->
+      <div class="flex items-center gap-3">
+        <a href="/board" target="_blank" class="text-xs text-[#0B5CAD] hover:underline font-medium flex items-center gap-1 mr-2">
+          <span class="material-symbols-outlined text-[16px]">tv</span>
+          <span>Open Ward TV Board</span>
+        </a>
+        <span class="px-3.5 py-1 bg-slate-100 border border-slate-200 rounded-full text-[13px] font-normal text-[#475569]">
+          Simulated demo hospital (long-stay, average stay 32 days)
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- TAB 1: TODAY -->
+  <!-- ========================================================================= -->
+  <main id="tab-today" class="tab-pane active w-full flex-1 flex flex-col justify-center py-6">
+    <div class="w-full max-w-[1200px] mx-auto px-10 flex flex-col gap-6">
+      
+      <!-- Status Banner -->
+      <section id="today-status-banner" class="w-full bg-[#C62828] text-white rounded-[12px] px-8 h-[96px] flex items-center gap-4 shrink-0 shadow-sm transition-colors duration-300">
+        <span id="today-banner-icon" class="material-symbols-outlined text-[36px] shrink-0">warning</span>
+        <div class="flex flex-col justify-center">
+          <h1 id="today-banner-title" class="text-[28px] font-bold leading-tight">Critical: beds almost full</h1>
+          <p id="today-banner-sub" class="text-[18px] font-normal text-white/95 leading-snug">Pause non-urgent admissions. Speed up discharges. Open extra beds.</p>
+        </div>
+      </section>
+
+      <!-- Key Numbers Row (3 Cards, equal 168px height) -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1: Beds in Use -->
+        <div class="bg-white border border-[#E2E8F0] rounded-[12px] p-6 min-h-[168px] flex flex-col justify-between">
+          <div class="text-[16px] font-medium text-[#475569]">Beds in use</div>
+          <div>
+            <div class="flex items-baseline gap-2">
+              <span id="today-beds-in-use-val" class="text-[64px] font-bold leading-none tracking-tight text-[#0F172A]">110</span>
+              <span class="text-[24px] font-semibold text-[#475569]">/ 120</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
+              <div id="today-progress-bar" class="bg-[#C62828] h-full rounded-full transition-all duration-300" style="width: 91.6%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Beds Free -->
+        <div class="bg-white border border-[#E2E8F0] rounded-[12px] p-6 min-h-[168px] flex flex-col justify-between">
+          <div class="text-[16px] font-medium text-[#475569]">Beds free</div>
+          <div class="flex items-baseline">
+            <span id="today-beds-free-val" class="text-[64px] font-bold leading-none tracking-tight text-[#0F172A]">10</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Patients Waiting with No Bed -->
+        <div class="bg-white border border-[#E2E8F0] rounded-[12px] p-6 min-h-[168px] flex flex-col justify-between">
+          <div class="text-[16px] font-medium text-[#475569]">Patients waiting with no bed</div>
+          <div class="flex items-baseline">
+            <span id="today-unmet-demand-val" class="text-[64px] font-bold leading-none tracking-tight text-[#0F172A]">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lower Row -->
+      <section class="grid grid-cols-12 gap-6 items-stretch">
+        <!-- Left: Next 7 Days Forecast Chart -->
+        <div class="col-span-8 bg-white border border-[#E2E8F0] rounded-[12px] p-6 h-[330px] flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <div class="text-[20px] font-bold text-[#0F172A]">Next 7 days</div>
+            <span class="px-3 py-0.5 bg-slate-100 border border-slate-200 rounded-full text-[14px] font-normal text-[#475569]">Rough estimate</span>
+          </div>
+
+          <div class="relative w-full flex-1 flex flex-col justify-end pt-2 pb-1">
+            <svg id="today-chart-svg" class="w-full h-[180px] overflow-visible" preserveAspectRatio="none" viewBox="0 0 700 180">
+              <!-- 90% Threshold Reference Line -->
+              <line stroke="#C62828" stroke-dasharray="4 4" stroke-width="1.5" x1="30" x2="560" y1="80" y2="80"></line>
+              <text fill="#C62828" font-family="Inter" font-size="14" font-weight="500" x="568" y="84">Almost full (90%)</text>
+              
+              <!-- 7-Day Polyline -->
+              <polyline id="today-chart-poly" fill="none" points="40,46 125,58 210,69 295,81 380,90 465,101 550,110" stroke="#0B5CAD" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+              
+              <!-- Value Points -->
+              <circle id="today-dot-first" cx="40" cy="46" fill="#FFFFFF" r="4.5" stroke="#0B5CAD" stroke-width="2.5"></circle>
+              <text id="today-d1-occ" fill="#0F172A" font-family="Inter" font-size="14" font-weight="600" text-anchor="middle" x="40" y="32">91.6%</text>
+              
+              <circle id="today-dot-last" cx="550" cy="110" fill="#FFFFFF" r="4.5" stroke="#0B5CAD" stroke-width="2.5"></circle>
+              <text id="today-d7-occ" fill="#0F172A" font-family="Inter" font-size="14" font-weight="600" text-anchor="middle" x="550" y="132">89.4%</text>
+            </svg>
+
+            <!-- Day Axis Labels -->
+            <div class="grid grid-cols-7 text-center pt-2 text-[14px] text-[#475569] font-medium border-t border-slate-100">
+              <span>Day 1</span><span>Day 2</span><span>Day 3</span><span>Day 4</span><span>Day 5</span><span>Day 6</span><span>Day 7</span>
+            </div>
+          </div>
+
+          <!-- Bottom Footnote: Empirical Coverage & HMM Callout -->
+          <div class="flex items-center justify-between text-xs text-[#475569] pt-2 border-t border-slate-100">
+            <span id="today-coverage-note">Prediction intervals achieve 73.3% empirical coverage on held-out test window (SE 8.1%).</span>
+            <span id="today-hmm-callout">HMM regime: <strong>Pre-Surge</strong> (52.6%) · <span class="px-2 py-0.5 bg-slate-100 rounded text-xs text-[#475569]">Rough estimate</span></span>
+          </div>
+        </div>
+
+        <!-- Right: Update Today's Count -->
+        <div class="col-span-4 bg-white border border-[#E2E8F0] rounded-[12px] p-6 h-[330px] flex flex-col justify-between">
+          <div>
+            <h2 class="text-[22px] font-bold text-[#0F172A] mb-4">Update today's count</h2>
+            <label for="today-bed-input" class="block text-[16px] font-medium text-[#475569] mb-2">Beds in use today</label>
+            <div class="flex items-center gap-3">
+              <div class="relative flex-1">
+                <input class="w-full h-11 bg-slate-50 border border-[#E2E8F0] rounded-lg px-3.5 pr-14 text-[16px] font-semibold text-[#0F172A] focus:outline-none focus:border-[#0B5CAD] focus:ring-1 focus:ring-[#0B5CAD]" id="today-bed-input" type="number" min="0" max="300" value="110">
+                <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-[14px] text-[#475569] pointer-events-none">in use</span>
+              </div>
+              <button class="h-11 px-5 bg-[#0B5CAD] hover:bg-[#084887] active:bg-[#073f78] text-white text-[14px] font-medium rounded-lg transition-colors cursor-pointer" id="today-update-btn" type="button">Update</button>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-[#E2E8F0]">
+            <button class="text-[14px] text-[#0B5CAD] hover:underline font-medium cursor-pointer" id="today-load-demo-btn" type="button">Load demo data</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- TAB 2: NEW PATIENT -->
+  <!-- ========================================================================= -->
+  <main id="tab-new-patient" class="tab-pane w-full flex-1 flex flex-col justify-center py-8">
+    <div class="w-full max-w-[1200px] mx-auto px-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        
+        <!-- Left Card (Form, Col 5) -->
+        <div class="lg:col-span-5 bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between">
+          <div>
+            <h1 class="text-[32px] leading-[40px] font-bold text-[#0F172A] tracking-[-0.01em] mb-6">
+              How long might this patient stay?
+            </h1>
+
+            <form class="flex flex-col gap-5" id="new-pat-form">
+              <!-- Department -->
+              <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-medium text-[#0F172A]" for="new-pat-dept">Department</label>
+                <div class="relative">
+                  <select class="w-full h-11 px-3.5 bg-[#F8FAFC] text-[#0F172A] text-sm rounded-lg border border-[#E2E8F0] appearance-none cursor-pointer focus:outline-none focus:border-[#0B5CAD]" id="new-pat-dept">
+                    <option value="radiotherapy" selected>radiotherapy</option>
+                    <option value="gynecology">gynecology</option>
+                    <option value="anesthesia">anesthesia</option>
+                    <option value="surgery">surgery</option>
+                    <option value="TB &amp; Chest disease">TB &amp; Chest disease</option>
+                  </select>
+                  <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#64748B] pointer-events-none text-[20px]">expand_more</span>
+                </div>
+              </div>
+
+              <!-- How serious -->
+              <div class="flex flex-col gap-1.5">
+                <span class="text-sm font-medium text-[#0F172A]">How serious</span>
+                <div class="grid grid-cols-3 gap-2 bg-[#F1F5F9] p-1 rounded-lg">
+                  <button class="h-10 rounded-md text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" data-sev-btn="Minor" type="button">Minor</button>
+                  <button class="h-10 rounded-md text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" data-sev-btn="Moderate" type="button">Moderate</button>
+                  <button class="h-10 rounded-md text-sm font-medium bg-[#0B5CAD] text-white transition-colors" data-sev-btn="Extreme" type="button">Extreme</button>
+                </div>
+              </div>
+
+              <!-- How they arrived -->
+              <div class="flex flex-col gap-1.5">
+                <span class="text-sm font-medium text-[#0F172A]">How they arrived</span>
+                <div class="grid grid-cols-3 gap-2 bg-[#F1F5F9] p-1 rounded-lg">
+                  <button class="h-10 rounded-md text-sm font-medium bg-[#0B5CAD] text-white transition-colors" data-arr-btn="Emergency" type="button">Emergency</button>
+                  <button class="h-10 rounded-md text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" data-arr-btn="Trauma" type="button">Trauma</button>
+                  <button class="h-10 rounded-md text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors" data-arr-btn="Urgent" type="button">Urgent</button>
+                </div>
+              </div>
+
+              <!-- More details (optional accordion) -->
+              <div class="pt-1">
+                <button class="inline-flex items-center gap-1 text-sm font-medium text-[#0B5CAD] hover:underline transition-all cursor-pointer" id="new-pat-toggle-more" type="button">
+                  <span>More details (optional)</span>
+                  <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                </button>
+                <div class="hidden mt-3 p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg grid grid-cols-2 gap-3" id="new-pat-more-panel">
+                  <div>
+                    <label class="block text-xs font-medium text-[#475569] mb-1">Age Bracket</label>
+                    <select class="w-full h-9 bg-white border border-[#E2E8F0] rounded text-xs px-2" id="new-pat-age">
+                      <option value="51-60" selected>51-60</option>
+                      <option value="21-30">21-30</option>
+                      <option value="31-40">31-40</option>
+                      <option value="41-50">41-50</option>
+                      <option value="61-70">61-70</option>
+                      <option value="71-80">71-80</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-[#475569] mb-1">Bed Grade (1-4)</label>
+                    <select class="w-full h-9 bg-white border border-[#E2E8F0] rounded text-xs px-2" id="new-pat-bed-grade">
+                      <option value="3.0" selected>3.0 (Semi-Private)</option>
+                      <option value="1.0">1.0 (General)</option>
+                      <option value="2.0">2.0 (Standard)</option>
+                      <option value="4.0">4.0 (Deluxe)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-[#475569] mb-1">Visitors with Patient</label>
+                    <input class="w-full h-9 bg-white border border-[#E2E8F0] rounded text-xs px-2" id="new-pat-visitors" type="number" min="0" max="20" value="6">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-[#475569] mb-1">Admission Deposit ($)</label>
+                    <input class="w-full h-9 bg-white border border-[#E2E8F0] rounded text-xs px-2" id="new-pat-deposit" type="number" min="0" value="6200">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-6">
+            <button class="w-full h-11 bg-[#0B5CAD] hover:bg-[#084887] text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center cursor-pointer" id="new-pat-estimate-btn" type="button">
+              Estimate stay
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Card (Result, Col 7) -->
+        <div class="lg:col-span-7 bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between">
+          <div>
+            <!-- Alert Badge -->
+            <div class="mb-3">
+              <span id="new-pat-alert-chip" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FEF3C7] text-[#B26A00] text-xs font-semibold">
+                <span class="material-symbols-outlined text-[16px]">schedule</span>
+                <span>Long-stay alert · Tested</span>
+              </span>
+            </div>
+
+            <!-- Headline -->
+            <h2 id="new-pat-headline" class="text-[32px] leading-[40px] font-bold text-[#0F172A] mb-2 tracking-tight">
+              Plan for a long stay (over 50 days)
+            </h2>
+            <p class="text-[16px] font-medium text-[#475569] mb-6">Out of 100 similar patients</p>
+
+            <!-- 3 Big Tiles -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+              <!-- Tile 1 -->
+              <div id="new-pat-tile-short" class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-[12px] p-6 flex flex-col justify-between">
+                <span id="new-pat-num-short" class="text-[72px] leading-[1] font-bold text-[#0F172A] tracking-[-0.02em]">6</span>
+                <span class="text-[16px] text-[#475569] mt-2 leading-snug">Short stay (up to 20 days)</span>
+              </div>
+              <!-- Tile 2 -->
+              <div id="new-pat-tile-medium" class="bg-[#F8FAFC] border border-[#E2E8F0] rounded-[12px] p-6 flex flex-col justify-between">
+                <span id="new-pat-num-medium" class="text-[72px] leading-[1] font-bold text-[#0F172A] tracking-[-0.02em]">37</span>
+                <span class="text-[16px] text-[#475569] mt-2 leading-snug">Medium stay (21 to 50 days)</span>
+              </div>
+              <!-- Tile 3 (Highlighted) -->
+              <div id="new-pat-tile-long" class="bg-[#EFF6FF] border border-[#BFDBFE] rounded-[12px] p-6 flex flex-col justify-between">
+                <span id="new-pat-num-long" class="text-[72px] leading-[1] font-bold text-[#0B5CAD] tracking-[-0.02em]">57</span>
+                <span class="text-[16px] font-medium text-[#0B5CAD] mt-2 leading-snug">Long stay (over 50 days)</span>
+              </div>
+            </div>
+
+            <!-- Statistical Factors -->
+            <div class="mb-4">
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#475569] block mb-2">Factors associated with this stay:</span>
+              <ul id="new-pat-factors-list" class="flex flex-col gap-1.5">
+                <li class="flex items-start gap-2 text-sm text-[#0F172A]">
+                  <span class="material-symbols-outlined text-[18px] text-[#0B5CAD] shrink-0 mt-0.5">insights</span>
+                  <span><strong>Illness Severity: Extreme</strong> associated with longer stays (+)</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Bottom: Full Breakdown Accordion -->
+          <div class="flex-1 flex flex-col justify-center gap-2 pt-4 border-t border-[#F1F5F9]">
+            <p class="text-[14px] text-[#475569]">One-patient estimates are rough. Use them for planning only.</p>
+            <div>
+              <button id="new-pat-toggle-breakdown" class="inline-flex items-center gap-1 text-[15px] font-medium text-[#0B5CAD] hover:underline cursor-pointer" type="button">
+                <span>See full breakdown</span>
+                <span class="material-symbols-outlined text-[18px]">expand_more</span>
+              </button>
+              <div id="new-pat-breakdown-panel" class="hidden mt-3 p-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg">
+                <div id="new-pat-breakdown-table"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- TAB 3: WHAT IF -->
+  <!-- ========================================================================= -->
+  <main id="tab-what-if" class="tab-pane w-full flex-1 flex flex-col justify-between py-6">
+    <div class="w-full max-w-[1200px] mx-auto px-10 flex flex-col gap-6">
+      
+      <!-- Top Controller Block -->
+      <section class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="flex flex-col gap-2 min-w-[380px]">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F1F5F9] text-[#64748B] text-[13px] font-medium w-fit">
+            <span>Practice scenario on a simulated hospital. Not a prediction.</span>
+          </div>
+          <h1 class="text-[32px] font-bold text-[#0F172A] leading-tight tracking-tight">What if more patients arrive?</h1>
+        </div>
+
+        <!-- Slider & Quick Selectors -->
+        <div class="flex-1 max-w-[480px] flex flex-col justify-center">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-[14px] font-medium text-[#64748B]">How many more patients arrive?</span>
+            <span id="whatif-slider-val" class="text-[20px] font-bold text-[#0B5CAD]">+35%</span>
+          </div>
+          <div class="relative flex items-center h-6">
+            <input id="whatif-slider" class="w-full h-2 bg-[#E2E8F0] rounded-full appearance-none cursor-pointer accent-[#0B5CAD] focus:outline-none" type="range" min="0" max="60" step="5" value="35">
+          </div>
+          <div class="flex justify-between text-[13px] text-[#64748B] mt-1 font-medium">
+            <span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateWhatIfSurge(0)">0%</span>
+            <span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateWhatIfSurge(15)">+15%</span>
+            <span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateWhatIfSurge(30)">+30%</span>
+            <span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateWhatIfSurge(45)">+45%</span>
+            <span class="cursor-pointer hover:text-[#0B5CAD]" onclick="updateWhatIfSurge(60)">+60%</span>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div>
+          <button id="whatif-run-btn" class="h-11 px-5 bg-[#0B5CAD] hover:bg-[#084887] text-white rounded-[8px] text-[15px] font-semibold flex items-center gap-2 transition-colors cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+            <span>Show what happens</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Three Big Numbers (Equal height) -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[168px]">
+          <span class="text-[16px] font-medium text-[#64748B]">Beds in use</span>
+          <div id="whatif-metric-beds" class="text-[38px] xl:text-[44px] font-bold text-[#0F172A] tracking-tight leading-none my-auto whitespace-nowrap">77% <span class="text-[26px] xl:text-[30px] font-medium text-[#64748B] mx-1">→</span> 98%</div>
+          <div class="h-1"></div>
+        </div>
+
+        <div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[168px]">
+          <span class="text-[16px] font-medium text-[#64748B]">Days over 90% full</span>
+          <div id="whatif-metric-warning-days" class="text-[64px] font-bold text-[#0F172A] tracking-tight leading-none my-auto">46 <span class="text-[28px] font-medium text-[#64748B]">of 60</span></div>
+          <div class="h-1"></div>
+        </div>
+
+        <div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[168px]">
+          <span class="text-[16px] font-medium text-[#64748B]">Days with patients and no bed</span>
+          <div id="whatif-metric-unmet-days" class="text-[64px] font-bold text-[#C62828] tracking-tight leading-none my-auto">28 <span class="text-[28px] font-medium text-[#64748B]">of 60</span></div>
+          <div class="h-1"></div>
+        </div>
+      </section>
+
+      <!-- 60-Day Line Chart -->
+      <section class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[300px]">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-[20px] font-bold text-[#0F172A]">Next 60 days</h2>
+          <span class="text-xs text-[#64748B]">Simulated demo hospital (long-stay, average stay 32 days)</span>
+        </div>
+
+        <div class="relative w-full h-[180px] flex items-center pr-28">
+          <svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 1000 180">
+            <defs>
+              <clipPath id="whatif-clip">
+                <rect x="0" y="0" width="1000" height="65"></rect>
+              </clipPath>
+            </defs>
+            <!-- 100% Capacity Reference Line (120 beds at y=65) -->
+            <line stroke="#94A3B8" stroke-dasharray="6 6" stroke-width="1.5" x1="0" x2="1000" y1="65" y2="65"></line>
+            
+            <!-- Red Shaded Deficit Area -->
+            <g clip-path="url(#whatif-clip)">
+              <path id="whatif-overflow-area" d="M 0 145 C 150 145, 250 85, 350 52 C 450 25, 700 28, 1000 35 L 1000 65 L 0 65 Z" fill="#FEE2E2"></path>
+            </g>
+
+            <!-- 60-day Trajectory Line (stays elevated across the 60-day epidemic period) -->
+            <path id="whatif-surge-path" d="M 0 145 C 150 145, 250 85, 350 52 C 450 25, 700 28, 1000 35" fill="none" stroke="#0B5CAD" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+            
+            <!-- Dots and Values -->
+            <circle cx="0" cy="145" fill="#0B5CAD" r="4"></circle>
+            <text id="whatif-val-first" fill="#0B5CAD" font-size="12" font-weight="600" x="6" y="140">77%</text>
+
+            <circle id="whatif-last-dot" cx="1000" cy="35" fill="#0B5CAD" r="4"></circle>
+            <text id="whatif-val-last" fill="#0B5CAD" font-size="12" font-weight="600" x="960" y="28">98%</text>
+          </svg>
+
+          <!-- Red Overflow Badge -->
+          <div id="whatif-overflow-badge" class="absolute left-[58%] top-[10px] -translate-x-1/2 bg-white border border-[#FCA5A5] text-[#C62828] text-[13px] font-medium px-3 py-1 rounded-full shadow-sm">
+            Patients with no bed (up to 16 at the worst)
+          </div>
+
+          <!-- Reference Label -->
+          <div class="absolute right-0 top-[65px] -translate-y-1/2 font-medium text-[14px] text-[#64748B] pl-3 whitespace-nowrap">
+            All 120 beds
+          </div>
+        </div>
+
+        <!-- Axis Labels -->
+        <div class="w-full flex justify-between text-[14px] text-[#64748B] pt-3 pr-28 border-t border-[#F1F5F9] font-normal">
+          <span>Day 1</span>
+          <span>Day 15</span>
+          <span>Day 30</span>
+          <span>Day 45</span>
+          <span>Day 60</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- TAB 4: HOW ACCURATE -->
+  <!-- ========================================================================= -->
+  <main id="tab-how-accurate" class="tab-pane w-full flex-1 flex flex-col justify-between py-6">
+    <div class="w-full max-w-[1200px] mx-auto px-10 flex flex-col gap-6">
+      
+      <!-- Header Area -->
+      <div class="shrink-0">
+        <h1 class="text-[32px] leading-[40px] font-bold text-[#0F172A] tracking-tight">Can I trust this?</h1>
+        <p class="text-[18px] leading-[26px] text-[#475569] mt-1">How our estimates hold up in testing.</p>
+      </div>
+
+      <!-- 3x2 Cards Grid -->
+      <div class="grid grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[235px]">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <span class="text-[16px] font-bold leading-snug text-[#0F172A]">Guessing how long one patient stays</span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#E8F5E9] text-[#2E7D32] shrink-0">Tested</span>
+            </div>
+            <div id="acc-stay-stat" class="text-[52px] font-bold leading-tight tracking-tight text-[#0F172A] mt-1">4 in 10</div>
+          </div>
+          <p id="acc-stay-text" class="text-[15px] leading-[22px] text-[#475569] mt-3">correct (42.5%). A plain guess gets about 3 in 10 (27.5%).</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[235px]">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <span class="text-[16px] font-bold leading-snug text-[#0F172A]">Spotting patients who may stay over 50 days</span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#E8F5E9] text-[#2E7D32] shrink-0">Tested</span>
+            </div>
+            <div id="acc-alert-stat" class="text-[52px] font-bold leading-tight tracking-tight text-[#0F172A] mt-1">3 in 4</div>
+          </div>
+          <p id="acc-alert-text" class="text-[15px] leading-[22px] text-[#475569] mt-3">caught (77.5% recall). About 6 in 10 alerts are right (60.3% precision).</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[235px]">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <span class="text-[16px] font-bold leading-snug text-[#0F172A]">Adding up a whole ward</span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#E8F5E9] text-[#2E7D32] shrink-0">Tested</span>
+            </div>
+            <div id="acc-ward-stat" class="text-[40px] font-bold leading-tight tracking-tight text-[#0F172A] mt-1">Off by about 4%</div>
+          </div>
+          <p id="acc-ward-text" class="text-[15px] leading-[22px] text-[#475569] mt-3">with 100 patients (3.8% error). With 1 patient, it is off by more than half (56.5%).</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[235px]">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <span class="text-[16px] font-bold leading-snug text-[#0F172A]">Predicting next week's beds</span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#F1F5F9] text-[#475569] shrink-0">Rough estimate</span>
+            </div>
+            <div id="acc-fc-stat" class="text-[40px] font-bold leading-tight tracking-tight text-[#0F172A] mt-1">Not better</div>
+          </div>
+          <p id="acc-fc-text" class="text-[15px] leading-[22px] text-[#475569] mt-3">than simply assuming tomorrow looks like today. Held-out coverage is 73.3%.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-between min-h-[235px]">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <span class="text-[16px] font-bold leading-snug text-[#0F172A]">Spotting surges with the smart model</span>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-[14px] font-medium bg-[#F1F5F9] text-[#475569] shrink-0">Rough estimate</span>
+            </div>
+            <div id="acc-hmm-stat" class="text-[40px] font-bold leading-tight tracking-tight text-[#0F172A] mt-1">Not better</div>
+          </div>
+          <p id="acc-hmm-text" class="text-[15px] leading-[22px] text-[#475569] mt-3">than a simple rule: 85% of beds full. So the app uses the simple rule.</p>
+        </div>
+
+        <!-- Card 6: Limitations -->
+        <div class="bg-white rounded-[12px] border border-[#E2E8F0] p-6 flex flex-col justify-start min-h-[235px]">
+          <div class="text-[18px] font-bold text-[#0F172A] mb-2">Good to know</div>
+          <ul id="acc-limitations-list" class="flex flex-col gap-2 text-[14px] leading-[20px] text-[#475569] overflow-y-auto">
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#94A3B8] shrink-0 mt-2"></span>
+              <span>Learned from US hospital data, not Indian hospitals.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#94A3B8] shrink-0 mt-2"></span>
+              <span>The hospital on screen is simulated.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#94A3B8] shrink-0 mt-2"></span>
+              <span>Not for decisions about one patient.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Centered Footer (14px muted) -->
+  <footer class="w-full py-4 text-center shrink-0 border-t border-[#E2E8F0] bg-white">
+    <p class="text-[14px] text-[#475569]">
+      Planning aid only. Not for decisions about individual patients.
+    </p>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
